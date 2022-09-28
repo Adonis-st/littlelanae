@@ -36,8 +36,8 @@ const Nav = () => {
   return (
     <>
       <nav className='navbar'> 
-         <button className='sm:hidden ml-1' onClick={handleClick}>{isOpen ? <MdMenuOpen className='w-6 h-6'/> : <MdMenu className='w-6 h-6'/>}</button>
-         <button  className='sm:order-3 mr-3' onClick={handleThemeSwitch}>{darkMode === 'dark' ? <MdDarkMode className='w-5 h-5' /> : <MdOutlineLightMode className='w-5 h-5'/>}</button>
+         <button className='sm:hidden ml-1' onClick={handleClick}>{isOpen ? <MdMenuOpen className='w-6 h-6 '/> : <MdMenu className='w-6 h-6'/>}</button>
+         <button  className='sm:order-3 mr-3' onClick={handleThemeSwitch}>{darkMode === 'dark' ? <MdDarkMode className='w-5 h-5' /> : <MdOutlineLightMode className='w-5 h-5 text-rose-300'/>}</button>
          <div className={`${
             isOpen ? '' : 'hidden'
          } w-full sm:inline-flex sm:flex-grow sm:w-auto`}>
