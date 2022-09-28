@@ -1,4 +1,3 @@
-import React from 'react'
 
 const Accomplishments = () => {
   return (
@@ -8,15 +7,15 @@ const Accomplishments = () => {
          <img class="w-full" src="/images/acc/workout.png" alt="" />
          <div class="px-6 py-4">
          <h3 class="font-bold text-xl mb-2">Fitness</h3>
-         <p class="text-gray-900 text-base ">
+         <p class="text-gray-900 text-base">
          You came a long since your Planet Fitness days
           and have made tremendous progress along the way. 
-          <small> You still can't hang</small> 
+          <small> You still cannot hang</small> 
          </p>
       </div>
       <div class="px-6 pt-4 pb-2 rounded-lg">
-         <span class="inline-block bg-gray-200 dark:bg-rose-200  rounded-full px-3 py-1 text-sm font-semibold text-gray-900 mr-2 mb-2">#gym</span>
-         <span class="inline-block bg-gray-200 dark:bg-rose-200  rounded-full px-3 py-1 text-sm font-semibold text-gray-900 mr-2 mb-2">#fitness</span>
+         <span class="inline-block bg-gray-200 dark:bg-rose-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-900 mr-2 mb-2">#gym</span>
+         <span class="inline-block bg-gray-200 dark:bg-rose-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-900 mr-2 mb-2">#fitness</span>
          <span class="inline-block bg-gray-200 dark:bg-rose-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-900 mr-2 mb-2">#motivated</span>
          </div>
        </div>
