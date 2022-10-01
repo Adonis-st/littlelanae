@@ -7,7 +7,7 @@ const Carousel = () => {
 			<Slider indicators={false}>
 				{data.map((item, index) => {
 					return (
-						<div key={index} className=''>
+						<div key={index}>
 							<div className='rounded-lg shadow-lg'>
 								<img className='rounded-lg' src={item.imageUrl} alt={item.title} />
 								<div className='h-[155px] px-6 py-4'>

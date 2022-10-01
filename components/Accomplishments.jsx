@@ -8,7 +8,9 @@ const Accomplishments = () => {
 			<div className='acc hidden gap-x-1 sm:flex lg:gap-x-2 xl:gap-x-4'>
 				{data.map((item, index) => {
 					return (
-						<div className='mx-auto w-full max-w-[450px] overflow-hidden rounded-lg shadow-lg'>
+						<div
+							key={index}
+							className='mx-auto w-full max-w-[450px] overflow-hidden rounded-lg shadow-lg'>
 							<img className='max-w-full' src={item.imageUrl} alt={item.title} />
 							<div className='h-[200px] lg:h-[300px] '>
 								<div className='px-3 pb-4 pt-2 xl:px-5 xl:pt-3 '>
