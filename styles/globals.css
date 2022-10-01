@@ -4,68 +4,81 @@
 
 html,
 body {
-  padding: 0;
-  margin: 0;
-  font-family: 'Inter', sans-serif;
+	padding: 0;
+	margin: 0;
+	font-family: 'Inter', sans-serif;
 }
 
 a {
-  text-decoration: none;
+	text-decoration: none;
 }
 
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 @layer base {
-  :root {
-    --color-text-base: #111827;
-    --color-text-accent: #f472b6;
-    --color-background-base: #fde68a;
-  }
+	:root {
+		--color-text-base: #111827;
+		--color-text-accent: #f472b6;
+		--color-background-base: #fde68a;
+	}
 }
 
 @layer components {
-  .navbar {
-    @apply relative w-full flex flex-wrap items-center justify-between 
-    py-4 bg-gray-100 shadow-lg text-color-base dark:bg-rose-200;
-  }
+	/* Global */
 
-  .navbar-item {
-    @apply hover:bg-rose-100  w-fit rounded-lg 
-    mb-1 last:mb-0 sm:ml-4 dark:hover:bg-[#FFFFFFB3]
-    focus:bg-rose-100 dark:focus:bg-[#FFFFFFB3]
-    ;
-  }
+	.title {
+		@apply font-['Source_Sans_Pro'] font-bold capitalize tracking-wider;
+	}
 
-  .active {
-    @apply text-gray-400 dark:text-zinc-50 dark:hover:text-gray-400
-    dark:focus:text-gray-400
-    ; 
-  }
+	/* Navbar */
 
-  .hero {
-    @apply grid w-11/12 mt-4 mx-auto sm:flex sm:min-h-[100vh]
-    sm:mt-6 max-w-[1440px]
-    ;
-  }
+	.navbar {
+		@apply relative flex w-full flex-wrap items-center justify-between 
+    bg-gray-100 py-4 text-color-base shadow-lg dark:bg-rose-200;
+	}
 
-  .hero-text {
-    @apply flex flex-col h-full justify-end px-4 
-    col-[1/-1] row-[1/-1] text-color-base pb-3 self-center
-    sm:px-3 sm:pb-0
-    ;
-  }
+	.navbar-item {
+		@apply mb-1  w-fit rounded-lg last:mb-0 hover:bg-rose-100 
+    focus:bg-rose-100 dark:hover:bg-[#FFFFFFB3]  dark:focus:bg-[#FFFFFFB3] 
+    sm:ml-4;
+	}
 
-  .hero-img {
-    @apply z-[-1] col-[1/-1] row-[1/-1] rounded-lg; 
-  }
+	.active {
+		@apply text-gray-400 dark:text-zinc-50 dark:hover:text-gray-400
+    dark:focus:text-gray-400;
+	}
 
-  .hero-desk-img {
-    @apply hidden sm:inline-block sm:w-3/12 rounded-2xl max-w-[250px];
-  }
+	/* Hero */
 
+	.hero {
+		@apply mx-auto mt-4 grid w-11/12 max-w-[1440px] sm:mt-6
+    sm:flex sm:min-h-[100vh];
+	}
+
+	.hero-text {
+		@apply col-[1/-1] row-[1/-1] flex h-full flex-col 
+    justify-end self-center px-4 pb-3 text-color-base
+    sm:px-3 sm:pb-0;
+	}
+
+	.hero-img {
+		@apply z-[-1] col-[1/-1] row-[1/-1] rounded-lg;
+	}
+
+	.hero-desk-img {
+		@apply hidden max-w-[250px] rounded-2xl sm:inline-block sm:w-3/12;
+	}
+
+	/* Accomplishments */
+
+	.acc {
+		@apply mx-auto my-9 flex w-11/12 flex-col items-center sm:flex-row;
+	}
+
+	.acc-hashtag {
+		@apply mr-2 mb-2 inline-block rounded-full bg-gray-200 px-3 
+    py-1 text-sm font-semibold capitalize text-color-base dark:bg-rose-200 lg:mx-3 lg:text-[.91rem] xl:px-2 xl:text-[1.2rem];
+	}
 }
-
-
-

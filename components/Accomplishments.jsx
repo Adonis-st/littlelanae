@@ -1,26 +1,37 @@
+import data from '/data/acc.json';
+import Carousel from '../components/Carousel';
 
 const Accomplishments = () => {
-  return (
-    <div className='flex flex-col items-center w-11/12 mx-auto my-9'>
-      <h2 className='text-center text-3xl mb-3'>Accomplishments</h2>
-       <div class="rounded-lg overflow-hidden shadow-lg max-w-[450px]">
-         <img class="w-full" src="/images/acc/workout.png" alt="" />
-         <div class="px-6 py-4">
-         <h3 class="font-bold text-xl mb-2">Fitness</h3>
-         <p class="text-gray-900 text-base">
-         You came a long since your Planet Fitness days
-          and have made tremendous progress along the way. 
-          <small> You still cannot hang</small> 
-         </p>
-      </div>
-      <div class="px-6 pt-4 pb-2 rounded-lg">
-         <span class="inline-block bg-gray-200 dark:bg-rose-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-900 mr-2 mb-2">#gym</span>
-         <span class="inline-block bg-gray-200 dark:bg-rose-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-900 mr-2 mb-2">#fitness</span>
-         <span class="inline-block bg-gray-200 dark:bg-rose-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-900 mr-2 mb-2">#motivated</span>
-         </div>
-       </div>
-      </div>
-  )
-}
+	return (
+		<div className='mx-auto w-11/12'>
+			<h2 className='title text-center text-3xl'>Accomplishments</h2>
+			<div className='acc hidden gap-x-1 sm:flex lg:gap-x-2 xl:gap-x-4'>
+				{data.map((item, index) => {
+					return (
+						<div className='mx-auto w-full max-w-[450px] overflow-hidden rounded-lg shadow-lg'>
+							<img className='max-w-full' src={item.imageUrl} alt={item.title} />
+							<div className='h-[200px] lg:h-[300px] '>
+								<div className='px-3 pb-4 pt-2 xl:px-5 xl:pt-3 '>
+									<h3 className='mb-1 text-center text-xl font-bold capitalize xl:text-3xl'>
+										{item.title}
+									</h3>
+									<p className='text-center text-base text-color-base lg:text-left lg:text-lg  xl:text-[1.5rem]'>
+										{item.description}
+									</p>
+								</div>
+								<div className='hidden rounded-lg px-5 pt-4 pb-2 lg:flex lg:flex-wrap lg:justify-center'>
+									<span className='acc-hashtag'>#{item.hashtag.tag1}</span>
+									<span className='acc-hashtag'>#{item.hashtag.tag2}</span>
+									<span className='acc-hashtag'>#{item.hashtag.tag3}</span>
+								</div>
+							</div>
+						</div>
+					);
+				})}
+			</div>
+			<Carousel />
+		</div>
+	);
+};
 
-export default Accomplishments
+export default Accomplishments;

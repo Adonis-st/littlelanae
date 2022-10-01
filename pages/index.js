@@ -1,6 +1,6 @@
 import Head from 'next/head';
-import Accomplishments from '../components/Accomplishments';
 import Hero from '../components/Hero';
+import Accomplishments from '../components/Accomplishments';
 
 export default function Home() {
 	return (
@@ -12,6 +12,7 @@ export default function Home() {
 			</Head>
 			<Hero />
 			<Accomplishments />
+			<div className='pb-10'></div>
 		</div>
 	);
 }

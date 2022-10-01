@@ -1,5 +1,4 @@
-function encouragement() {
+export default function encouragement() {
 	return <div>Encouragement</div>;
 }
 
-export default encouragement;
