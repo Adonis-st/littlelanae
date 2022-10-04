@@ -2,8 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { MdMenu, MdOutlineLightMode, MdDarkMode, MdMenuOpen } from 'react-icons/md';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../utils/firebase';
 
 const Nav = () => {
+	const [user, loading] = useAuthState(auth);
+
 	const [darkMode, setDarkMode] = useState(null);
 
 	useEffect(() => {
@@ -66,6 +70,16 @@ const Nav = () => {
 								Quiz
 							</a>
 						</Link>
+						{!user && (
+							<Link href='/login'>
+								<a
+									className={`${
+										router.pathname === '/login' ? 'active' : ''
+									} navbar-item`}>
+									Login
+								</a>
+							</Link>
+						)}
 					</div>
 				</div>
 			</nav>
