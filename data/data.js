@@ -34,11 +34,6 @@ const data = [
 		incorrectAnswers: ['6', '4', '7'],
 		correctAnswer: '8',
 	},
-	{
-		question: 'TBD',
-		incorrectAnswers: ['n/a', 'n/a', 'n/a'],
-		correctAnswer: 'Correct',
-	},
 ];
 
 export default data;
