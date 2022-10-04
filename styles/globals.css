@@ -81,4 +81,82 @@ a {
 		@apply mr-2 mb-2 inline-block rounded-full bg-gray-200 px-3 
     py-1 text-sm font-semibold capitalize text-color-base dark:bg-rose-200 lg:mx-3 lg:text-[.91rem] xl:px-2 xl:text-[1.2rem];
 	}
+
+	/* Quiz */
+
+	.quiz {
+		@apply mx-auto mt-5 w-11/12 sm:mt-12 sm:w-9/12 xl:mt-16;
+	}
+
+	.score {
+		@apply mx-auto mb-5 mt-8 w-[55%] max-w-md rounded-md bg-rose-100 py-1
+		text-center text-base font-semibold text-pink-400 dark:bg-rose-200 dark:text-pink-500 sm:mb-7 lg:text-lg xl:text-xl;
+	}
+
+	.question {
+		@apply mx-auto flex max-w-[600px] items-center justify-center rounded-md border-[3px] border-neutral-900
+	bg-gray-100 p-3 text-center font-['Source_Sans_Pro'] text-lg font-bold text-color-base 
+	dark:border-rose-400 dark:bg-rose-300 sm:mb-6 sm:text-2xl md:mb-8;
+	}
+
+	.answer {
+		@apply mx-auto mb-3 flex w-9/12 
+		cursor-pointer rounded-full border-[3px] border-slate-300 bg-neutral-800 
+		 py-3 tracking-wider dark:border-rose-400 dark:bg-rose-300 sm:mb-5 sm:w-[48%] sm:py-4
+		 md:mr-3 md:w-[47%] lg:py-0 xl:mx-auto xl:w-[43%];
+	}
+
+	.answers {
+		@apply mx-auto mt-3 flex flex-col sm:max-w-[600px] sm:flex-row sm:flex-wrap sm:justify-between lg:max-w-[800px] xl:max-w-[1000px] xl:justify-start;
+	}
+
+	.answer-letter {
+		@apply hidden w-[70px]  justify-center  rounded-full rounded-r-none bg-white/[.95] py-3
+		 pl-2  text-2xl font-extrabold text-black dark:bg-rose-400 dark:text-white lg:flex xl:w-[80px] xl:py-[1.1rem] xl:text-3xl;
+	}
+
+	.answer-text {
+		@apply m-auto text-xl font-semibold capitalize text-white/[.9] sm:text-center sm:font-bold lg:mx-0 lg:ml-6 xl:text-2xl;
+	}
+
+	.correct-answer {
+		@apply border-[3px] border-lime-600 bg-lime-500 dark:border-lime-600 dark:bg-lime-400/[.9];
+	}
+
+	.correct-answer .answer-letter {
+		@apply bg-white text-lime-500 dark:bg-lime-500/[.8] dark:text-white/[.8];
+	}
+
+	.wrong-answer {
+		@apply border-[4px] border-red-800 bg-red-600  dark:border-red-800 dark:bg-red-500/[.9];
+	}
+
+	.wrong-answer .answer-letter {
+		@apply bg-white text-red-600  dark:bg-red-600/[.8] dark:text-white/[.9];
+	}
+
+	.wrong-answer .answer-text {
+		@apply text-white/[.95];
+	}
+
+	.next-button {
+		@apply mx-auto mt-3 w-[60%] max-w-[250px] cursor-pointer rounded-full border-2  border-neutral-900 bg-gray-100
+		px-8 py-2 text-center text-base font-semibold text-black dark:border-slate-300 dark:bg-black dark:text-white
+		sm:text-2xl;
+	}
+
+	.results {
+		@apply h-auto rounded-lg bg-rose-100 pb-5 text-center dark:bg-rose-200;
+	}
+
+	.congratulations {
+		@apply rounded-lg bg-rose-300 p-4 text-3xl text-white;
+	}
+	.results-info {
+		@apply my-4 text-lg;
+	}
+
+	.disabled-answer {
+		@apply pointer-events-none;
+	}
 }

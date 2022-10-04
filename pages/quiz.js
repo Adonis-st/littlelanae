@@ -1,3 +1,12 @@
+import Quiz from '../components/Quiz';
+import { QuizProvider } from '../contexts/quiz';
+
 export default function quiz() {
-	return <div>quiz</div>;
+	return (
+		<>
+			<QuizProvider>
+				<Quiz />
+			</QuizProvider>
+		</>
+	);
 }
