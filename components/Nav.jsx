@@ -3,11 +3,11 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { MdMenu, MdOutlineLightMode, MdDarkMode, MdMenuOpen } from 'react-icons/md';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '../utils/firebase';
+import { auth, useAuth } from '../utils/firebase';
 
 const Nav = () => {
 	const [user, loading] = useAuthState(auth);
-
+	const currentUser = useAuth();
 	const [darkMode, setDarkMode] = useState(null);
 
 	useEffect(() => {

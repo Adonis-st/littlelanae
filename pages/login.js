@@ -32,7 +32,7 @@ export default function Login() {
 			const result = await signInWithPopup(auth, fbProvider);
 			const credantial = await FacebookAuthProvider.credentialFromResult(result);
 			const token = credantial.accessToken;
-			let photoUrl = result.user.photoURL + '?height=500&access_token=' + token;
+			let photoUrl = result.user.photoURL + '?height=350&access_token=' + token;
 			await updateProfile(auth.currentUser, { photoURL: photoUrl });
 			console.log(result);
 			route.push('/encouragement');
