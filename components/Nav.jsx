@@ -7,7 +7,6 @@ import { auth, useAuth } from '../utils/firebase';
 
 const Nav = () => {
 	const [user, loading] = useAuthState(auth);
-	const currentUser = useAuth();
 	const [darkMode, setDarkMode] = useState(null);
 
 	useEffect(() => {
@@ -57,7 +56,7 @@ const Nav = () => {
 								Home
 							</a>
 						</Link>
-						<Link href='/encouragement'>
+						<Link href={!user ? '/login' : '/encouragement'}>
 							<a
 								className={`${
 									router.pathname === '/encouragement' ? 'active' : ''

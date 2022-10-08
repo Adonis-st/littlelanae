@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Message from './Message';
 import SendMessage from './SendMessage';
+
 import { db } from '../utils/firebase';
 import {
 	query,
@@ -49,9 +50,10 @@ const Chat = () => {
 	const deleteMessage = async (id) => {
 		await deleteDoc(doc(db, 'messages', id));
 	};
+
 	return (
-		<>
-			<main className={style.main}>
+		<div>
+			<div className={style.main}>
 				{messages &&
 					messages.map((message) => (
 						<Message
@@ -62,12 +64,12 @@ const Chat = () => {
 							deleteMessage={deleteMessage}
 						/>
 					))}
-			</main>
+			</div>
 			{/* Send Message Compoenent */}
 			<SendMessage scroll={scroll} />
 
 			<span ref={scroll}></span>
-		</>
+		</div>
 	);
 };
 
