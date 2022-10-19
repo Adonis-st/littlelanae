@@ -1,35 +1,29 @@
-import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { auth } from '../utils/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import Chat from '../components/Chat';
+import Chat from '../components/encourage/Chat';
+import { Alert } from 'flowbite-react';
 
-export default function encouragement() {
-	// const [user, loading] = useAuthState(auth);
-	// if (user) {
-	// 	return (
-	// 		<div>
-	// 			<h1 className='mx-auto text-3xl'>
-	// 				Your in {user.displayName}{' '}
-	// 				<span>
-	// 					<img
-	// 						src={user.photoURL}
-	// 						alt='avatar'
-	// 						referrerPolicy='no-referrer'
-	// 						className='inline-block aspect-square w-10 rounded-full object-cover'
-	// 					/>
-	// 				</span>
-	// 			</h1>
-	// 			<button
-	// 				className='rounded-full bg-blue-600 py-2 px-3 font-bold text-white/[.9]'
-	// 				onClick={() => auth.signOut()}>
-	// 				Sign Out
-	// 			</button>
-	// 			<Chat />
-	// 		</div>
-	// 	);
-	// } else {
-	// 	return <div>Please wait</div>;
-	// }
+export default function Encouragement() {
+	const [user, loading] = useAuthState(auth);
+	const [displayAlert, setDisplayAlert] = useState(true);
 
-	return <Chat />;
+	if (user) {
+		return (
+			<div className='mx-auto max-w-[960px]'>
+				{displayAlert && (
+					<div className='mt-1'>
+						<Alert
+							color='success'
+							onDismiss={() => setDisplayAlert((prevState) => !prevState)}>
+							<span className='text-xs sm:ml-5 sm:text-base'>
+								Please leave some word of encourage for Ahsha
+							</span>
+						</Alert>
+					</div>
+				)}
+				<Chat />
+			</div>
+		);
+	}
 }

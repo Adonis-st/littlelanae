@@ -1,6 +1,6 @@
 import Head from 'next/head';
-import Hero from '../components/Hero';
-import Accomplishments from '../components/Accomplishments';
+import Hero from '../components/home/Hero';
+import Accomplishments from '../components/home/Accomplishments';
 
 export default function Home() {
 	return (
