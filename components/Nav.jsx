@@ -66,11 +66,11 @@ const Nav = () => {
 									src={user.photoURL ? user.photoURL : 'images/profile.jpeg'}
 									alt='avatar'
 									referrerPolicy='no-referrer'
-									className=' inline-block aspect-square w-7  rounded-full object-cover  lg:w-8 xl:w-9'
+									className=' inline-block aspect-square w-7 rounded-full object-cover lg:w-8 xl:w-9'
 								/>
 							</div>
 
-							<div className={`nav-dropdown hidden group-focus:block  `}>
+							<div className={`nav-dropdown hidden group-hover:block  md:group-focus:block`}>
 								<ul>
 									<li className='nav-dropdown-item '>
 										<div
