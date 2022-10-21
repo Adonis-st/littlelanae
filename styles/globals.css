@@ -19,14 +19,6 @@ a {
 	box-sizing: border-box;
 }
 
-@layer base {
-	:root {
-		--color-text-base: #111827;
-		--color-text-accent: #f472b6;
-		--color-background-base: #fde68a;
-	}
-}
-
 @layer components {
 	/* Global */
 
@@ -69,13 +61,13 @@ a {
 	/* Hero */
 
 	.hero {
-		@apply mx-auto mt-4 grid w-11/12 max-w-[1440px] sm:mt-6
-    sm:flex sm:min-h-[100vh];
+		@apply mx-auto mt-5 mb-10 grid w-11/12 max-w-[1440px]
+    sm:mt-6 sm:flex sm:min-h-[100vh];
 	}
 
 	.hero-text {
 		@apply col-[1/-1] row-[1/-1] flex h-full flex-col 
-    justify-end self-center px-4 pb-3 text-color-base
+    justify-end self-center px-4 pb-3 text-gray-900
     sm:px-3 sm:pb-0;
 	}
 
@@ -84,8 +76,8 @@ a {
 	}
 
 	.hero-img_desk {
-		@apply hidden w-full   max-w-[250px] rounded-2xl shadow-xl
-		ring-1 ring-gray-700/50  dark:shadow-rose-300 dark:ring-rose-300 sm:inline-block;
+		@apply hidden w-full max-w-[250px] rounded-2xl shadow-xl
+		ring-1 ring-gray-700/50 dark:shadow-rose-300 dark:ring-rose-300 sm:inline-block;
 	}
 
 	.hero-img-animation {
@@ -100,27 +92,55 @@ a {
 	}
 
 	.acc-card_desktop {
-		@apply mx-auto w-full max-w-[450px] overflow-hidden rounded-lg  shadow-lg  delay-150 duration-500 ease-in-out
+		@apply mx-auto w-full max-w-[450px] overflow-hidden rounded-lg shadow-lg delay-150 duration-500 ease-in-out
 		 hover:scale-[1.07] dark:bg-rose-300/[.5] dark:text-gray-800 dark:shadow-rose-400/[.7];
 	}
 
 	.acc-hashtag {
-		@apply mr-2 mb-2 inline-block rounded-full bg-gray-200 px-3  py-1 text-sm font-semibold
-    capitalize text-color-base ring-2 ring-gray-800 dark:bg-rose-100/[.7] dark:ring-rose-300  lg:mx-3 lg:text-[.91rem] xl:px-2 xl:text-[1.2rem];
+		@apply inline-block rounded-full bg-gray-200 px-3 py-1 text-xs  font-semibold capitalize text-gray-900 ring-2
+    ring-gray-800 dark:bg-rose-100/[.7] dark:ring-rose-300 sm:mr-2 sm:mb-3 sm:text-sm lg:mx-3 lg:text-[.91rem] xl:px-2 xl:text-[1.2rem];
 	}
-
+	/* mr-2 mb-2  */
 	/* encoragement */
 
 	/* message */
 
 	.message-name {
 		@apply font-["Source_Sans_Pro"]
-		text-xs italic text-gray-600 sm:text-sm lg:text-lg;
+		text-xs italic text-gray-600 sm:text-sm xl:text-base;
 	}
 
 	.message-text_user {
 		@apply w-full rounded-lg bg-inherit p-0 text-left font-semibold text-white caret-gray-900 ring-4 ring-blue-600
 		 focus:bg-blue-400  focus:ring-white sm:text-xl  lg:text-2xl;
+	}
+
+	.message-hearts {
+		@apply cursor-pointer sm:text-lg xl:text-xl;
+	}
+
+	.message-likes-count {
+		@apply mr-[.15rem] text-[.55rem] font-semibold;
+	}
+
+	/* send message */
+
+	.send-message-form-container {
+		@apply absolute bottom-0 mx-auto mt-3 flex h-12 w-[97vw] items-center bg-gray-100 sm:h-16 sm:w-[97.5vw] lg:w-[98.5vw] xl:w-[98.8vw];
+	}
+
+	.send-message-form {
+		@apply mx-auto flex h-[80%] w-[95%] max-w-[720px] items-center justify-between rounded-full border-[1.5px] border-gray-500 bg-white text-xl sm:h-[70%] sm:w-[80%] xl:max-w-[850px];
+	}
+
+	.send-message-input {
+		@apply h-full w-[100%] rounded-full border-none p-3 font-["Source_Sans_Pro"] text-xl text-gray-900 caret-blue-500 placeholder:text-center 
+		placeholder:text-2xl placeholder:font-semibold placeholder:text-gray-800/[.8] group-hover:w-[85%] group-hover:placeholder:text-xl sm:px-7 sm:text-2xl
+		group-hover:sm:w-[88%] group-hover:sm:placeholder:text-2xl;
+	}
+
+	.send-message-btn {
+		@apply mr-1 hidden  h-[90%] items-center justify-center rounded-full bg-blue-600 px-3 text-white/[.9] group-hover:flex sm:mr-2 sm:rounded-3xl sm:px-4 lg:mr-2 lg:px-2 xl:px-3;
 	}
 
 	/* Quiz */
@@ -136,7 +156,7 @@ a {
 
 	.question {
 		@apply mx-auto flex max-w-[600px] items-center justify-center rounded-md border-[3px] border-neutral-900
-	bg-gray-100 p-2 text-center font-['Source_Sans_Pro'] text-lg font-bold text-color-base 
+	bg-gray-100 p-2 text-center font-['Source_Sans_Pro'] text-lg font-bold text-gray-900 
 	dark:border-rose-400 dark:bg-rose-300 sm:mb-6 sm:text-2xl md:mb-8;
 	}
 
@@ -206,11 +226,11 @@ a {
 	/* Login */
 
 	.form-container {
-		@apply mx-auto mt-10 flex h-[75%] w-11/12 max-w-[580px] flex-col items-center justify-center  rounded-3xl bg-white
+		@apply mx-auto mt-10 flex h-[75%] w-11/12 max-w-[580px] flex-col items-center justify-center rounded-3xl bg-white
 		 pb-16 pt-5 text-gray-800 shadow-xl dark:shadow-rose-300/[.6] sm:w-9/12 sm:pt-10;
 	}
 	.sign-in-btn {
-		@apply flex w-[75%]  max-w-[318px]  cursor-pointer items-center justify-center rounded-2xl  border border-gray-400 px-1
+		@apply flex w-[75%] max-w-[318px] cursor-pointer items-center justify-center rounded-2xl  border border-gray-400 px-1
 		py-2 font-['Source_Sans_Pro'] font-medium shadow-md hover:bg-gray-100 sm:w-[55%] sm:py-[.65rem];
 	}
 
@@ -219,9 +239,9 @@ a {
 	}
 
 	.login-btn {
-		@apply relative w-[65%] max-w-[260px] rounded-full  bg-blue-600 py-2 
-		px-3 text-lg font-extrabold tracking-wide text-white shadow-xl hover:bg-blue-500
-		 hover:shadow-blue-500/[.3] focus:top-[1.5px] focus:left-[1.5px]  focus:bg-blue-500 
-		  focus:shadow-none dark:bg-rose-300  dark:hover:bg-rose-200 dark:hover:shadow-rose-200/[.3] dark:focus:bg-rose-200 sm:w-[45%] sm:py-3;
+		@apply relative w-[65%] max-w-[260px] rounded-full bg-blue-600 py-2 px-3 text-lg 
+		font-extrabold tracking-wide text-white shadow-xl hover:bg-blue-500 hover:shadow-blue-500/[.3]
+	 focus:top-[1.5px] focus:left-[1.5px] focus:bg-blue-500 focus:shadow-none dark:bg-rose-300
+	  dark:hover:bg-rose-200  dark:hover:shadow-rose-200/[.3] dark:focus:bg-rose-200 sm:w-[45%] sm:py-3;
 	}
 }

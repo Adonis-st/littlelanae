@@ -10,14 +10,14 @@ export default function Encouragement() {
 
 	if (user) {
 		return (
-			<div className='mx-auto max-w-[960px]'>
+			<div className='relative mx-auto min-h-[90.5vh]  max-w-[1200px]'>
 				{displayAlert && (
 					<div className='mt-1'>
 						<Alert
 							color='success'
 							onDismiss={() => setDisplayAlert((prevState) => !prevState)}>
 							<span className='text-xs sm:ml-5 sm:text-base'>
-								Please leave some word of encourage for Ahsha
+								{user.displayName} please leave some word of encourage for Ahsha
 							</span>
 						</Alert>
 					</div>

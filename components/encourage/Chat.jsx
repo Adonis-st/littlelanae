@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Message from './Message';
 import SendMessage from './SendMessage';
 import { db } from '../../utils/firebase';
@@ -10,6 +10,8 @@ import {
 	deleteDoc,
 	doc,
 	updateDoc,
+	arrayUnion,
+	arrayRemove,
 } from 'firebase/firestore';
 
 const Chat = () => {
@@ -41,6 +43,18 @@ const Chat = () => {
 		await deleteDoc(doc(db, 'messages', id));
 	};
 
+	// Like message
+	const like = async (id, user) => {
+		const messages = doc(db, 'messages', id);
+		await updateDoc(messages, { likes: arrayUnion(user) });
+	};
+
+	// unlike a message
+	const unLike = async (id, user) => {
+		const messages = doc(db, 'messages', id);
+		await updateDoc(messages, { likes: arrayRemove(user) });
+	};
+
 	return (
 		<div>
 			<div className='flex flex-col p-[10px]'>
@@ -51,6 +65,8 @@ const Chat = () => {
 							message={message}
 							updateMessage={updateMessage}
 							deleteMessage={deleteMessage}
+							like={like}
+							unLike={unLike}
 						/>
 					))}
 			</div>

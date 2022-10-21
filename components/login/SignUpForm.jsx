@@ -3,12 +3,13 @@ import { IoArrowBack } from 'react-icons/io5';
 
 const SignUpForm = ({ toggleForm, register }) => {
 	const [registerForm, setRegisterForm] = useState({
+		name: '',
 		email: '',
 		password: '',
 		password2: '',
 	});
 
-	const { email, password, password2 } = registerForm;
+	const { name, email, password, password2 } = registerForm;
 	const onChange = (e) => {
 		setRegisterForm((prevState) => ({
 			...prevState,
@@ -23,7 +24,7 @@ const SignUpForm = ({ toggleForm, register }) => {
 		} else if (password.length < 6) {
 			alert('Password should be at least 6 characters');
 		} else {
-			register(email, password);
+			register(name, email, password);
 		}
 	};
 	return (
@@ -38,6 +39,16 @@ const SignUpForm = ({ toggleForm, register }) => {
 			</div>
 			<div className='mx-auto mt-3 w-full'>
 				<form onSubmit={onSubmit} className='flex flex-col items-center'>
+					<input
+						className='login-input mb-[.65rem]  '
+						type='text'
+						id='name'
+						name='name'
+						value={name}
+						placeholder='Enter Name'
+						onChange={onChange}
+						required
+					/>
 					<input
 						className='login-input mb-[.65rem]  '
 						type='email'

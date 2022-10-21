@@ -7,19 +7,7 @@ module.exports = {
 		'./components/**/*.{js,ts,jsx,tsx}',
 	],
 	theme: {
-		extend: {
-			textColor: {
-				color: {
-					base: 'var(--color-text-base)',
-					accent: 'var(--color-text-accent)',
-				},
-			},
-			backgroundColor: {
-				color: {
-					base: 'var(--color-background-base)',
-				},
-			},
-		},
+		extend: {},
 	},
 	plugins: [require('flowbite/plugin')],
 };
