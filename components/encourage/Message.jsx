@@ -1,9 +1,9 @@
 import { auth } from '../../utils/firebase';
 import { GiTrashCan } from 'react-icons/gi';
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { AiFillHeart } from 'react-icons/ai';
 import { MdMode, MdDone } from 'react-icons/md';
 import { useState, useRef } from 'react';
-import { Button, Modal, Dropdown } from 'flowbite-react';
+import { Button, Modal } from 'flowbite-react';
 
 const Message = ({ message, updateMessage, deleteMessage, like, unLike }) => {
 	const [input, setInput] = useState(message.text);
@@ -54,22 +54,22 @@ const Message = ({ message, updateMessage, deleteMessage, like, unLike }) => {
 			{displayMe && (
 				<div
 					onClick={messageDisplayClose}
-					className=' absolute inset-0 z-0  bg-white opacity-80'></div>
+					className='absolute inset-0 z-0 bg-white opacity-70'></div>
 			)}
 			<div>
 				{!presentUser && (
 					<div
 						className={` ${
 							displayMe ? 'relative z-10' : ''
-						} mb-2 flex flex-col items-start justify-start lg:mb-4`}>
+						} mb-2 flex flex-col items-start justify-start lg:mb-5`}>
 						<div className='ml-9 flex sm:ml-11 lg:ml-14'>
-							{true && <span className='message-name  text-left'>{message.name}</span>}
+							<span className='message-name text-left'>{message.name}</span>
 						</div>
 						<div className='flex max-w-[74%] sm:max-w-[65%] lg:max-w-[58%]'>
 							<div className=' flex max-w-full'>
 								<div className='mb-2 flex self-start rounded-3xl rounded-bl-sm bg-gray-300/[.8] px-3 pt-2 pb-[.3rem] text-gray-800 shadow-xl sm:px-[.8rem] sm:pt-[.6rem] sm:pb-[.4rem] lg:px-[.9rem] lg:pt-3 lg:pb-2'>
-									<div className='align-start  flex'>
-										<blockquote className=' flex text-left font-semibold capitalize sm:text-xl '>
+									<div className='align-start flex'>
+										<blockquote className='flex text-left font-medium capitalize sm:text-xl'>
 											{message.text}
 										</blockquote>
 									</div>
@@ -83,7 +83,7 @@ const Message = ({ message, updateMessage, deleteMessage, like, unLike }) => {
 										/>
 									) : (
 										<AiFillHeart
-											className='message-hearts'
+											className='message-hearts opacity-60 '
 											onClick={() => like(message.id, auth.currentUser.uid)}
 										/>
 									)}{' '}
@@ -92,9 +92,9 @@ const Message = ({ message, updateMessage, deleteMessage, like, unLike }) => {
 									</small>
 								</div>
 							</div>
-							<div className='order-[-10] mt-8 mr-1 w-7 shrink-0 select-none self-end sm:w-9 lg:w-11'>
+							<div className='order-[-10] mt-8 mr-1 w-7 shrink-0 flex-grow-0 select-none self-end  sm:w-9 lg:w-11 '>
 								<img
-									className='inline-block aspect-square rounded-full object-cover shadow-xl'
+									className='inline-block aspect-square w-full rounded-full object-cover  shadow-xl'
 									src={message.avatar}
 									alt='Avatar'
 								/>
@@ -107,7 +107,7 @@ const Message = ({ message, updateMessage, deleteMessage, like, unLike }) => {
 					<div
 						className={`${
 							displayMe ? 'relative z-10' : ''
-						} mb-3 flex flex-col items-end justify-end`}>
+						} mb-3 flex flex-col items-end justify-end lg:mb-5`}>
 						<div>
 							<p className='message-name  mr-1  text-end lg:mr-2'>{message.name}</p>
 						</div>
@@ -117,10 +117,10 @@ const Message = ({ message, updateMessage, deleteMessage, like, unLike }) => {
 									onClick={messageDisplayOpen}
 									className={`${
 										displayMe ? 'rounded-b-none' : ''
-									} max-w-full rounded-3xl rounded-br-sm bg-blue-600 px-3 pt-2 pb-[.3rem] text-white shadow-xl sm:px-[.8rem] sm:pt-[.6rem] sm:pb-[.4rem] lg:px-[.9rem] lg:pt-2`}>
+									} dark:rose max-w-full rounded-3xl rounded-br-sm bg-blue-600 px-3 pt-2 pb-[.3rem] text-white shadow-xl dark:bg-rose-200  sm:px-[.8rem] sm:pt-[.6rem] sm:pb-[.4rem] lg:px-[.9rem] lg:pt-2`}>
 									<blockquote
 										contentEditable={editable}
-										className='message-text_user  '
+										className='message-text_user '
 										onInput={(e) => setInput(e.currentTarget.textContent)}
 										suppressContentEditableWarning={true}
 										ref={ref}>
@@ -135,7 +135,7 @@ const Message = ({ message, updateMessage, deleteMessage, like, unLike }) => {
 										/>
 									) : (
 										<AiFillHeart
-											className='message-hearts'
+											className='message-hearts opacity-60'
 											onClick={() => like(message.id, auth.currentUser.uid)}
 										/>
 									)}{' '}
@@ -147,7 +147,7 @@ const Message = ({ message, updateMessage, deleteMessage, like, unLike }) => {
 							<div
 								className={`${
 									displayMe ? 'flex' : 'hidden'
-								} w-full items-center justify-evenly rounded-2xl rounded-t-none bg-blue-700 p-1 py-2 `}>
+								} w-full items-center justify-evenly rounded-2xl rounded-t-none bg-blue-700 p-1 py-2  dark:bg-rose-300`}>
 								<button
 									onClick={displayModal}
 									className='flex w-[40%] justify-center rounded-md bg-red-600 p-1 font-semibold text-white ring-1 ring-red-300 hover:bg-red-400'>
@@ -181,7 +181,7 @@ const Message = ({ message, updateMessage, deleteMessage, like, unLike }) => {
 								{!editable ? (
 									<button
 										onClick={editMessage}
-										className='order-[-1] flex w-[40%] items-center justify-center rounded-md bg-blue-500/[.7] p-1 font-semibold text-white ring-1 ring-blue-300 hover:bg-blue-400'>
+										className='order-[-1] flex w-[40%] items-center justify-center rounded-md bg-blue-500/[.7] p-1 font-semibold text-white ring-1 ring-blue-300 hover:bg-blue-400 dark:bg-rose-200/[.7] dark:ring-rose-100 dark:hover:bg-rose-100'>
 										<MdMode className='text-lg ' />
 										<span className='ml-1 tracking-wide'>Edit</span>
 									</button>

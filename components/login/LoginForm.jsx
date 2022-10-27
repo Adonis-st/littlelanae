@@ -25,7 +25,6 @@ const LoginForm = ({ toggleForm, login }) => {
 				<input
 					className='login-input mb-[.65rem]'
 					type='email'
-					id='email'
 					name='email'
 					value={email}
 					placeholder='Email'
@@ -34,7 +33,6 @@ const LoginForm = ({ toggleForm, login }) => {
 				<input
 					className='login-input mb-3'
 					type='password'
-					id='password'
 					name='password'
 					value={password}
 					placeholder='Password'

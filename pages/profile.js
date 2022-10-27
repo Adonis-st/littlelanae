@@ -1,84 +1,219 @@
-// import { useState, useRef } from 'react';
-// import { getAuth, updateProfile } from 'firebase/auth';
-// import { auth } from '../utils/firebase';
-// import { useAuthState, useEffect } from 'react-firebase-hooks/auth';
+import { useState, useEffect, useRef } from 'react';
+import { getAuth, deleteUser, updateEmail, updateProfile, updatePassword } from 'firebase/auth';
+import { auth as Auth, upload } from '../utils/firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useRouter } from 'next/router';
+import Spinner from '../components/Spinner';
+import EditProfile from '../components/EditProfile';
 
 export default function Profile() {
-	// const [input, setInput] = useState(false);
-	// const [editable, setEditable] = useState(false);
-	// const ref = useRef(null);
-	// const [user, loading] = useAuthState(auth);
-	// const { displayName, photoURL } = auth.currentUser;
+	const [profileData, setProfileData] = useState({
+		photoUrl: '/images/profile.jpeg',
+		displayName: '',
+		currentEmail: '',
+	});
+	const { photoUrl, displayName, currentEmail } = profileData;
 
-	// const edit = () => {
-	// 	setEditable((prevState) => !prevState);
-	// 	setTimeout(() => {
-	// 		ref.current.focus();
-	// 	}, 10);
-	// };
+	const [displayEditProfile, setDisplayEditProfile] = useState({
+		name: false,
+		email: false,
+		password: false,
+		deleteAccount: false,
+	});
+	const auth = getAuth();
+	const [photo, setPhoto] = useState(null);
+	const [loading, setLoading] = useState(false);
 
-	// const editProfile = async (name) => {
-	// 	try {
-	// 		await updateProfile(auth.currentUser, { displayName: name });
-	// 		setEditable((prevState) => !prevState);
-	// 		console.log(user);
-	// 	} catch (error) {
-	// 		console.log(error.message);
-	// 	}
-	// };
+	const [user] = useAuthState(Auth);
+	const [showModal, setShowModal] = useState(false);
+	const router = useRouter();
+	const inputRef = useRef(null);
+
+	useEffect(() => {
+		if (user && user.photoURL) {
+			setProfileData((prevState) => ({
+				...prevState,
+				photoUrl: user.photoURL,
+			}));
+		}
+		if (user) {
+			setProfileData((prevState) => ({
+				...prevState,
+				displayName: user.displayName,
+				currentEmail: user.email,
+			}));
+		}
+	}, [user]);
+
+	const updateDisplayName = async (newName) => {
+		if (!newName) {
+			return alert('Please enter a vaild field');
+		} else {
+			try {
+				await updateProfile(user, { displayName: newName });
+				console.log(user);
+				alert('Name change was successfull');
+				window.location.reload();
+			} catch (error) {
+				console.log(error.message);
+			}
+		}
+	};
+
+	const updateUserEmail = async (newEmail) => {
+		try {
+			await updateEmail(auth.currentUser, newEmail);
+			console.log(user);
+			alert('Email change was successfull');
+			window.location.reload();
+		} catch (error) {
+			if (error.message === 'Firebase: Error (auth/invalid-email).') {
+				alert('Invaild email');
+			} else {
+				alert('log out and log back in');
+			}
+			console.log(error.message);
+		}
+	};
+
+	const updateUserPassword = async (newPassword, confirmedPassword) => {
+		if (newPassword !== confirmedPassword) {
+			alert("Passwords don't match");
+		} else if (newPassword.length < 6) {
+			alert('Password should be at least 6 characters');
+		} else {
+			try {
+				await updatePassword(auth.currentUser, newPassword);
+				console.log(user);
+				alert('Password change was successfull');
+				window.location.reload();
+			} catch (error) {
+				console.log(error.message);
+			}
+		}
+	};
+
+	const deleteProfile = async () => {
+		try {
+			setLoading(true);
+			await deleteUser(auth.currentUser);
+			setLoading(false);
+			router.push('/');
+		} catch (error) {
+			console.log(error.message);
+		}
+	};
+
+	const handleChange = (e) => {
+		if (e.target.files[0]) {
+			setPhoto(e.target.files[0]);
+		}
+	};
+
+	const handleClick = () => {
+		upload(photo, user, setLoading);
+	};
+
+	if (loading) {
+		return <Spinner />;
+	}
 
 	return (
-		<div className='mx-auto mt-4 h-[80vh] w-11/12 shadow-xl sm:w-10/12'>
-			{/* <div className='flex flex-col items-center'>
-				<h1 className=' text-xl'>Edit Profile</h1>
-				<div className='relative mt-2 flex w-24 shrink-0 items-center justify-center rounded-full p-2 hover:scale-105'>
+		<div className='mx-auto mt-6 h-[70vh] w-11/12 max-w-[650px] rounded-lg bg-white shadow-xl dark:shadow-rose-300 sm:mt-10 sm:w-8/12 lg:h-[60vh] lg:text-lg'>
+			<h1 className='pt-7 text-center font-["Source_Sans_Pro"] text-2xl sm:text-3xl xl:text-4xl'>
+				Edit Profile
+			</h1>
+			<div className='mb-2 flex items-center justify-center'>
+				<div
+					onClick={() => inputRef.current.click()}
+					className='relative mt-2 flex w-24 shrink-0 grow-0  cursor-pointer items-center justify-center rounded-full p-2 duration-500 ease-in-out hover:scale-[1.08] lg:w-28'>
 					<img
-						src={'/images/profile.jpeg'}
+						src={photoUrl}
 						alt='avatar'
 						referrerPolicy='no-referrer'
-						className=' inline-block aspect-square w-full shrink-0  rounded-full object-cover  shadow-xl'
+						className=' inline-block aspect-square w-full shrink-0 grow-0 rounded-full object-cover shadow-xl'
 					/>
-					<div className='absolute flex h-1/2 w-[89px] shrink-0 items-end self-end  rounded-b-full  '>
-						<div className='h-[40%] w-full rounded-[50%/100%] rounded-t-none bg-black text-center text-sm tracking-wider text-white opacity-[.9] '>
+					<div className='absolute flex h-1/2 w-[70px] shrink-0 items-end self-end rounded-b-full lg:w-[81px] '>
+						<div className='h-[48%] w-full rounded-[50%/100%] rounded-t-none bg-black text-center text-sm tracking-wider text-white opacity-80 '>
 							Edit
 						</div>
 					</div>
 				</div>
+				<button
+					onClick={handleClick}
+					disabled={loading || !photo}
+					className='ml-1 rounded-full bg-blue-600 px-3 py-1 font-semibold tracking-wider text-white shadow-lg hover:bg-blue-400 disabled:hidden dark:bg-rose-300 dark:hover:bg-rose-200'>
+					Upload
+				</button>
 			</div>
-			<div className='flex flex-col items-center gap-y-3'>
-				<div>
-					<h3>Display Name</h3>
-					<span
-						contentEditable={editable}
-						className=' p-2'
-						onInput={(e) => setInput(e.currentTarget.textContent)}
-						suppressContentEditableWarning={true}
-						ref={ref}>
-						{displayName}
-					</span>
-					{editable ? (
-						<button
-							className='ml-4 rounded-full bg-blue-500 p-3'
-							onClick={() => editProfile(input)}>
-							{' '}
-							done
-						</button>
-					) : (
-						<button className='ml-4 rounded-full bg-blue-500 p-3' onClick={edit}>
-							{' '}
-							edit
-						</button>
-					)}
+			<div className='flex flex-col items-center gap-y-4'>
+				<div className='flex w-full items-center justify-center'>
+					<h3 className='mr-1 font-light'>Name:</h3>
+					<span className='text-sm font-medium lg:text-base'>{displayName}</span>
+					<button
+						className='ml-5 rounded-full p-1  font-semibold text-blue-500 hover:bg-gray-200 dark:text-rose-300'
+						onClick={() => [
+							setDisplayEditProfile((prevState) => ({ ...prevState, name: true })),
+							setShowModal((prevState) => !prevState),
+						]}>
+						Edit
+					</button>
 				</div>
-				<div>
-					<h3>Email</h3>
-					<span>smoove@gmail.com</span>
+
+				<div className='flex w-full items-center justify-center'>
+					<h3 className='mr-1 font-light'>Email:</h3>
+					<span className='text-sm font-medium lg:text-base'>{currentEmail}</span>
+					<button
+						className='ml-4 rounded-full p-1 font-semibold text-blue-500 hover:bg-gray-200 dark:text-rose-300'
+						onClick={() => [
+							setDisplayEditProfile((prevState) => ({ ...prevState, email: true })),
+							setShowModal((prevState) => !prevState),
+						]}>
+						Edit
+					</button>
 				</div>
-				<div>
-					<h3>Password</h3>
-					<span>********</span>
+				<div className='flex w-full items-center justify-center'>
+					<h3 className='mr-1 font-light '>Password:</h3>
+					<span className='mt-[.35rem] text-sm font-medium lg:text-base'>********</span>
+					<button
+						className='ml-4 rounded-full p-1 font-semibold text-blue-500 hover:bg-gray-200 dark:text-rose-300'
+						onClick={() => [
+							setDisplayEditProfile((prevState) => ({ ...prevState, password: true })),
+							setShowModal((prevState) => !prevState),
+						]}>
+						Edit
+					</button>
 				</div>
-			</div> */}
+				<div className='flex'>
+					<label>
+						<input type='file' ref={inputRef} className='hidden' onChange={handleChange} />
+					</label>
+				</div>
+
+				<div>
+					<button
+						onClick={() => [
+							setDisplayEditProfile((prevState) => ({ ...prevState, deleteAccount: true })),
+							setShowModal((prevState) => !prevState),
+						]}
+						className='rounded-lg bg-red-600 px-4 py-2 font-bold text-white shadow-lg hover:bg-red-400'>
+						Delete account
+					</button>
+				</div>
+
+				{showModal && (
+					<EditProfile
+						setShowModal={setShowModal}
+						displayEditProfile={displayEditProfile}
+						setDisplayEditProfile={setDisplayEditProfile}
+						updateDisplayName={updateDisplayName}
+						updateUserEmail={updateUserEmail}
+						updateUserPassword={updateUserPassword}
+						deleteProfile={deleteProfile}
+						profileData={profileData}
+					/>
+				)}
+			</div>
 		</div>
 	);
 }

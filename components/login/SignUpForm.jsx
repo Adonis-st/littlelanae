@@ -42,7 +42,6 @@ const SignUpForm = ({ toggleForm, register }) => {
 					<input
 						className='login-input mb-[.65rem]  '
 						type='text'
-						id='name'
 						name='name'
 						value={name}
 						placeholder='Enter Name'
@@ -52,7 +51,6 @@ const SignUpForm = ({ toggleForm, register }) => {
 					<input
 						className='login-input mb-[.65rem]  '
 						type='email'
-						id='email'
 						name='email'
 						value={email}
 						placeholder='Email'
@@ -62,7 +60,6 @@ const SignUpForm = ({ toggleForm, register }) => {
 					<input
 						className='login-input mb-3'
 						type='password'
-						id='password'
 						name='password'
 						value={password}
 						placeholder='Password'
@@ -72,7 +69,6 @@ const SignUpForm = ({ toggleForm, register }) => {
 					<input
 						className='login-input mb-3'
 						type='password'
-						id='password2'
 						name='password2'
 						value={password2}
 						placeholder='Confirm Password'
