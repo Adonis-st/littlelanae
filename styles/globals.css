@@ -117,11 +117,15 @@ a {
 
 	.message-text_user {
 		@apply w-full rounded-lg bg-inherit p-0 text-left font-medium text-white caret-gray-900 ring-4 ring-blue-600 focus:bg-blue-400
-		 focus:ring-white dark:text-gray-50 dark:ring-rose-200  dark:focus:bg-rose-300 sm:text-xl lg:text-2xl;
+		 focus:ring-white dark:text-gray-50 dark:ring-rose-200 dark:focus:bg-rose-300 sm:text-xl lg:text-2xl;
+	}
+
+	.message-dropdown-item {
+		@apply flex w-full items-center justify-center rounded-t-md px-2 py-[.1667rem] text-sm  font-semibold text-gray-900 hover:bg-gray-400 lg:px-3 lg:py-1 lg:text-base;
 	}
 
 	.message-hearts {
-		@apply cursor-pointer sm:text-lg xl:text-xl;
+		@apply cursor-pointer duration-300 ease-in-out hover:scale-[1.15] sm:text-lg xl:text-xl;
 	}
 
 	.message-likes-count {
@@ -145,7 +149,8 @@ a {
 	}
 
 	.send-message-btn {
-		@apply mr-1 hidden h-[90%]  items-center justify-center rounded-full bg-blue-600 px-3  text-white/[.9] group-hover:flex dark:bg-rose-300 sm:mr-2 sm:rounded-3xl sm:px-4 lg:mr-2 lg:px-2 xl:px-3;
+		@apply mr-1 hidden h-[90%]  items-center justify-center rounded-full bg-blue-600 px-3  text-white/[.9] disabled:bg-blue-400 group-hover:flex dark:bg-rose-300 disabled:dark:bg-rose-200/80 
+		sm:mr-2 sm:rounded-3xl sm:px-4 lg:mr-2 lg:px-2 xl:px-3;
 	}
 
 	/* Quiz */
@@ -248,5 +253,11 @@ a {
 		font-extrabold tracking-wide text-white shadow-xl hover:bg-blue-500 hover:shadow-blue-500/[.3]
 	 focus:top-[1.5px] focus:left-[1.5px] focus:bg-blue-500 focus:shadow-none dark:bg-rose-300
 	  dark:hover:bg-rose-200  dark:hover:shadow-rose-200/[.3] dark:focus:bg-rose-200 sm:w-[45%] sm:py-3;
+	}
+
+	.register-avatar-btn {
+		@apply rounded-xl bg-blue-600 px-3  py-1 text-sm  font-semibold tracking-wide text-white  shadow-xl  hover:bg-blue-400 
+		 hover:shadow-blue-500/[.3] focus:top-[1.5px] focus:left-[1.5px] focus:bg-blue-500 focus:shadow-none  dark:bg-rose-300 dark:hover:bg-rose-200
+		 dark:hover:shadow-rose-200/[.3] dark:focus:bg-rose-200 sm:text-base lg:text-lg;
 	}
 }

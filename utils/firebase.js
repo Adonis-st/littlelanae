@@ -4,6 +4,8 @@ import { getAuth, onAuthStateChanged, reload, updateProfile } from 'firebase/aut
 import { getFirestore } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -39,13 +41,21 @@ export function useAuth() {
 }
 
 //Storage
-export async function upload(file, currentUser, setLoading) {
+export async function upload(file, currentUser, setLoading, instantReload) {
 	const fileRef = ref(storage, currentUser.uid + '.png');
 	setLoading(true);
 	const snapshot = await uploadBytes(fileRef, file);
 	const photoURL = await getDownloadURL(fileRef);
 	updateProfile(currentUser, { photoURL });
 	setLoading(false);
-	alert('Uploaded file!');
-	window.location.reload();
+	if (!instantReload) {
+		toast.success('Avatar icon change was successful', {
+			autoClose: 2000,
+		});
+		setTimeout(() => {
+			window.location.reload();
+		}, 2500);
+	} else {
+		window.location.reload();
+	}
 }

@@ -9,68 +9,80 @@ import {
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
 } from 'firebase/auth';
-import { auth } from '../utils/firebase';
+import { auth, upload } from '../utils/firebase';
 import { useRouter } from 'next/router';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import LoginForm from '../components/login/LoginForm';
 import SignUpForm from '../components/login/SignUpForm';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Spinner from '../components/Spinner';
 
 export default function Login() {
-	const [user, loading] = useAuthState(auth);
+	const [user] = useAuthState(auth);
 	const [newUser, setNewUser] = useState(false);
 	const router = useRouter();
+	const [loading, setLoading] = useState(false);
 
 	// Sign in with Google
 	const googleProvider = new GoogleAuthProvider();
 	const GoogleLogin = async () => {
+		setLoading(true);
 		try {
-			const result = await signInWithPopup(auth, googleProvider);
-			console.log(result.user);
-			router.push('/encouragement');
+			await signInWithPopup(auth, googleProvider);
+			setLoading(false);
 		} catch (error) {
-			console.log(error);
+			setLoading(false);
+			return toast.error(error);
 		}
 	};
 
 	// Sign in with Facebook
 	const fbProvider = new FacebookAuthProvider();
 	const FacebookLogin = async () => {
+		setLoading(true);
 		try {
 			const result = await signInWithPopup(auth, fbProvider);
 			const credantial = await FacebookAuthProvider.credentialFromResult(result);
 			const token = credantial.accessToken;
 			let photoUrl = result.user.photoURL + '?height=350&access_token=' + token;
 			await updateProfile(auth.currentUser, { photoURL: photoUrl });
-			console.log(result);
-			router.push('/encouragement');
+			setLoading(false);
 		} catch (error) {
-			console.log(error);
+			setLoading(false);
+			return toast.error(error);
 		}
 	};
 
 	// Register with email & password
-	const register = async (name, email, password) => {
+	const register = async (name, email, password, photo) => {
+		setLoading(true);
 		try {
-			const user = await createUserWithEmailAndPassword(auth, email, password);
+			await createUserWithEmailAndPassword(auth, email, password);
 			await updateProfile(auth.currentUser, { displayName: name });
-			console.log(user);
-			router.push('/encouragement');
+			if (photo) {
+				await upload(photo, auth.currentUser, setLoading, true);
+			}
 		} catch (error) {
-			console.log(error.message);
+			setLoading(false);
+			return toast.error(error.message);
 		}
 	};
 
 	// Login with email & password
 	const login = async (email, password) => {
+		setLoading(true);
 		try {
-			const user = await signInWithEmailAndPassword(auth, email, password);
-			console.log(user);
-			router.push('/encouragement');
+			await signInWithEmailAndPassword(auth, email, password);
+			setLoading(false);
 		} catch (error) {
+			setLoading(false);
 			if (error.message === 'Firebase: Error (auth/wrong-password).') {
-				alert(' Please check your password');
+				return toast.error(' Please check your password');
 			} else if (error.message === 'Firebase: Error (auth/user-not-found).') {
-				alert('Please check your email');
+				return toast.error('Please check your email');
+			} else {
+				return toast.error(error.message);
 			}
 		}
 	};
@@ -85,25 +97,32 @@ export default function Login() {
 
 	const toggleForm = () => setNewUser((prevState) => !prevState);
 
+	if (loading) {
+		return <Spinner />;
+	}
+
 	return (
-		<div className='flex h-[90vh] max-h-[650px] justify-center xl:items-center'>
-			{!newUser ? (
-				<div className='form-container'>
-					<h1 className='mb-3 text-center text-3xl xl:text-4xl '>Login</h1>
-					<button onClick={GoogleLogin} className='sign-in-btn mb-[.85rem]'>
-						<FcGoogle className='text-2xl sm:text-3xl xl:text-4xl' />
-						<span className='ml-2 sm:text-xl xl:text-2xl'>Continue with Google</span>
-					</button>
-					<button onClick={FacebookLogin} className='sign-in-btn'>
-						<AiFillFacebook className='text-2xl text-blue-800 sm:text-3xl xl:text-4xl' />
-						<span className='ml-2 sm:text-xl xl:text-2xl'>Continue with Facebook</span>
-					</button>
-					<div className='mt-5 h-[1px] w-[73%] max-w-[290px] border-b border-gray-400'></div>
-					<LoginForm toggleForm={toggleForm} login={login} />
-				</div>
-			) : (
-				<SignUpForm toggleForm={toggleForm} register={register} />
-			)}
-		</div>
+		<>
+			<div className='flex h-[90vh] max-h-[650px] justify-center xl:items-center'>
+				<ToastContainer position='top-center' />
+				{!newUser ? (
+					<div className='form-container'>
+						<h1 className='mb-3 text-center text-3xl xl:text-4xl '>Login</h1>
+						<button onClick={GoogleLogin} className='sign-in-btn mb-[.85rem]'>
+							<FcGoogle className='text-2xl sm:text-3xl xl:text-4xl' />
+							<span className='ml-2 sm:text-xl xl:text-2xl'>Continue with Google</span>
+						</button>
+						<button onClick={FacebookLogin} className='sign-in-btn'>
+							<AiFillFacebook className='text-2xl text-blue-800 sm:text-3xl xl:text-4xl' />
+							<span className='ml-2 sm:text-xl xl:text-2xl'>Continue with Facebook</span>
+						</button>
+						<div className='mt-5 h-[1px] w-[73%] max-w-[290px] border-b border-gray-400'></div>
+						<LoginForm toggleForm={toggleForm} login={login} />
+					</div>
+				) : (
+					<SignUpForm toggleForm={toggleForm} register={register} />
+				)}
+			</div>
+		</>
 	);
 }

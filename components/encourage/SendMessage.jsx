@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { auth, db, useAuth } from '../../utils/firebase';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { MdOutlineUpload } from 'react-icons/md';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SendMessage = ({ scroll }) => {
 	const [input, setInput] = useState('');
@@ -16,10 +17,7 @@ const SendMessage = ({ scroll }) => {
 
 	const sendMessage = async (e) => {
 		e.preventDefault();
-		if (input === '') {
-			alert('Please enter a valid message');
-			return;
-		}
+		setInput('');
 		const { uid, displayName } = auth.currentUser;
 		await addDoc(collection(db, 'messages'), {
 			text: input,
@@ -27,9 +25,8 @@ const SendMessage = ({ scroll }) => {
 			avatar: photoURL,
 			likes: [],
 			uid,
-			timestamp: serverTimestamp(),
+			timeStamp: serverTimestamp(),
 		});
-		setInput('');
 		scroll.current.scrollIntoView({ behavior: 'smooth' });
 	};
 
@@ -45,7 +42,7 @@ const SendMessage = ({ scroll }) => {
 						type='text'
 						placeholder='Leave Some Encouragement'
 					/>
-					<button className='send-message-btn' type='submit'>
+					<button type='submit' disabled={!input} className='send-message-btn'>
 						<span className='hidden text-sm lg:block xl:text-base'>Send</span>
 						<MdOutlineUpload className='sm:text-2xl lg:text-xl xl:text-2xl' />
 					</button>

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { AiOutlineLine } from 'react-icons/ai';
 import data from '../../data/theOrginals';
 
@@ -22,10 +23,12 @@ const TheOriginals = () => {
 						</div>
 					</div>
 					<div className='order-[-1] w-7 shrink-0 flex-grow-0 select-none p-1 sm:w-14 lg:m-1 lg:w-20'>
-						<img
-							className='inline-block aspect-square w-full rounded-full object-cover  object-top shadow-xl'
+						<Image
 							src={item.avatar}
 							alt={item.alt}
+							width={500}
+							height={500}
+							className='inline-block aspect-square w-full rounded-full object-cover object-top shadow-xl'
 						/>
 					</div>
 				</div>

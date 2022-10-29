@@ -1,3 +1,11 @@
+import Image from 'next/image';
+import mobile from '../../public/images/hero/mobile.png';
+import rightAngle from '../../public/images/hero/right-angle.svg';
+import deskTop1 from '../../public/images/hero/desk1.png';
+import deskTop2 from '../../public/images/hero/desk2.png';
+import deskTop3 from '../../public/images/hero/desk3.png';
+import deskTop4 from '../../public/images/hero/desk4.png';
+
 const Hero = () => {
 	return (
 		<div className='hero'>
@@ -11,46 +19,85 @@ const Hero = () => {
 
 				<p className='mx-2 hidden text-sm group-focus:block sm:text-lg lg:text-2xl'>
 					All Jokes aside I really do love you and I&#39;m truly amzaed at how far you have
-					come
+					come.
 				</p>
 			</button>
 
-			<img className='hero-img sm:hidden' src='/images/hero/mobile.png' alt='Ahsha Ford' />
+			{/* <img className='hero-img sm:hidden' src='/images/hero/mobile.png' alt='Ahsha Ford' /> */}
+			<Image src={mobile} alt='Ahsha Ford' className='hero-img sm:hidden' priority />
 
-			<img
-				className='order-[-3] hidden w-[10%] max-w-[90px] rotate-[135deg] self-start sm:inline-block'
+			{/* <img
+				className='order-[-3] hidden w-[10%] max-w-[90px] rotate-[135deg] self-start  sm:inline-block'
 				src='/images/hero/right-angle.svg'
 				alt=''
+			/> */}
+			<Image
+				src={rightAngle}
+				alt='Design Element'
+				className='order-[-3] hidden w-[10%] max-w-[90px] rotate-[135deg] self-start sm:inline-block'
 			/>
+
 			<div className='group relative order-[3] mt-10 hidden w-[125%] max-w-[250px] self-start sm:flex'>
-				<img
+				{/* <img
 					className='hero-img_desk hero-img-animation opacity-100 blur-0 group-hover:opacity-20 group-hover:blur-md'
-					src='/images/hero/desk.png'
+					src='/images/hero/desk1.png'
 					alt='Ahsha Ford'
+				/> */}
+				<Image
+					src={deskTop1}
+					alt='Ahsha Ford'
+					className='hero-img_desk hero-img-animation opacity-100 blur-0 group-hover:opacity-20 group-hover:blur-md'
+					priority
 				/>
-				<img
+
+				{/* <img
 					className='hero-img_desk hero-img-animation absolute opacity-0 blur-md group-hover:opacity-100 group-hover:blur-none'
-					src='/images/hero/desk5.png'
-					alt='Ahsha Ford'
-				/>
-			</div>
-			<div className='group  relative order-[-1] mb-[3.5rem] hidden w-[125%] max-w-[250px] self-end sm:flex'>
-				<img
-					className='hero-img_desk hero-img-animation opacity-100 blur-0 group-hover:opacity-20 group-hover:blur-md'
 					src='/images/hero/desk3.png'
 					alt='Ahsha Ford'
+				/> */}
+
+				<Image
+					src={deskTop3}
+					alt='Ahsha Ford'
+					className='hero-img_desk hero-img-animation absolute opacity-0 blur-md group-hover:opacity-100 group-hover:blur-none'
 				/>
-				<img
+			</div>
+
+			<div className='group  relative order-[-1] mb-[3.5rem] hidden w-[125%] max-w-[250px] self-end sm:flex'>
+				{/* <img
+					className='hero-img_desk hero-img-animation opacity-100 blur-0 group-hover:opacity-20 group-hover:blur-md'
+					src='/images/hero/desk2.png'
+					alt='Ahsha Ford'
+				/> */}
+				<Image
+					src={deskTop2}
+					alt='Ahsha Ford'
+					className='hero-img_desk hero-img-animation opacity-100 blur-0 group-hover:opacity-20 group-hover:blur-md'
+					priority
+				/>
+
+				{/* <img
 					className='hero-img_desk hero-img-animation absolute opacity-0 blur-md group-hover:opacity-100 group-hover:blur-none'
 					src='/images/hero/desk4.png'
 					alt='Ahsha Ford'
+				/> */}
+				<Image
+					src={deskTop4}
+					className='hero-img_desk hero-img-animation absolute opacity-0 blur-md group-hover:opacity-100 group-hover:blur-none'
+					alt='Ahsha For'
 				/>
 			</div>
 
-			<img
+			{/* <img
 				className='order-[4] hidden w-[10%] max-w-[90px] rotate-[315deg] self-end sm:inline-block'
 				src='/images/hero/right-angle.svg'
 				alt=''
+			/> */}
+
+			<Image
+				src={rightAngle}
+				alt='Design Element'
+				className='order-[4] hidden w-[10%] max-w-[90px] rotate-[315deg] self-end sm:inline-block'
 			/>
 		</div>
 	);

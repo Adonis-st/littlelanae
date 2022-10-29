@@ -5,8 +5,14 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useRouter } from 'next/router';
 import Spinner from '../components/Spinner';
 import EditProfile from '../components/EditProfile';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Profile() {
+	const imageMimeType = /image\/(png|jpg|jpeg)/i;
+	const auth = getAuth();
+	const [user] = useAuthState(Auth);
+	const [loading, setLoading] = useState(false);
 	const [profileData, setProfileData] = useState({
 		photoUrl: '/images/profile.jpeg',
 		displayName: '',
@@ -20,11 +26,9 @@ export default function Profile() {
 		password: false,
 		deleteAccount: false,
 	});
-	const auth = getAuth();
-	const [photo, setPhoto] = useState(null);
-	const [loading, setLoading] = useState(false);
 
-	const [user] = useAuthState(Auth);
+	const [photo, setPhoto] = useState(null);
+	const [seephoto, setSeePhoto] = useState(null);
 	const [showModal, setShowModal] = useState(false);
 	const router = useRouter();
 	const inputRef = useRef(null);
@@ -45,15 +49,53 @@ export default function Profile() {
 		}
 	}, [user]);
 
+	const getPhoto = (e) => {
+		const file = e.target.files[0];
+		if (!file.type.match(imageMimeType)) {
+			return toast.error('Image type is not valid');
+		} else if (file) {
+			setPhoto(file);
+		} else {
+			return toast.error('Error');
+		}
+	};
+
+	useEffect(() => {
+		let fileReader,
+			isCancel = false;
+		if (photo) {
+			fileReader = new FileReader();
+			fileReader.onload = (e) => {
+				const { result } = e.target;
+				if (result && !isCancel) {
+					setSeePhoto(result);
+				}
+			};
+			fileReader.readAsDataURL(photo);
+		}
+		return () => {
+			isCancel = true;
+			if (fileReader && fileReader.readyState === 1) {
+				fileReader.abort();
+			}
+		};
+	}, [photo]);
+
 	const updateDisplayName = async (newName) => {
 		if (!newName) {
-			return alert('Please enter a vaild field');
+			return toast.error('Please enter a vaild field', {});
+		} else if (newName.length < 3) {
+			return toast.error('Name must be at least be 3 characters long', {});
 		} else {
 			try {
 				await updateProfile(user, { displayName: newName });
-				console.log(user);
-				alert('Name change was successfull');
-				window.location.reload();
+				closeModal();
+				toast.success('Name change was successful', {
+					autoClose: 2000,
+				});
+				setTimeout(() => {
+					window.location.reload();
+				}, 2500);
 			} catch (error) {
 				console.log(error.message);
 			}
@@ -63,12 +105,16 @@ export default function Profile() {
 	const updateUserEmail = async (newEmail) => {
 		try {
 			await updateEmail(auth.currentUser, newEmail);
-			console.log(user);
-			alert('Email change was successfull');
-			window.location.reload();
+			closeModal();
+			toast.success('Email change was successful', {
+				autoClose: 2000,
+			});
+			setTimeout(() => {
+				window.location.reload();
+			}, 2500);
 		} catch (error) {
 			if (error.message === 'Firebase: Error (auth/invalid-email).') {
-				alert('Invaild email');
+				return toast.error('Invaild email, please try again');
 			} else {
 				alert('log out and log back in');
 			}
@@ -78,15 +124,19 @@ export default function Profile() {
 
 	const updateUserPassword = async (newPassword, confirmedPassword) => {
 		if (newPassword !== confirmedPassword) {
-			alert("Passwords don't match");
+			return toast.error("Passwords don't match");
 		} else if (newPassword.length < 6) {
-			alert('Password should be at least 6 characters');
+			return toast.error('Password should be at least 6 characters long');
 		} else {
 			try {
 				await updatePassword(auth.currentUser, newPassword);
-				console.log(user);
-				alert('Password change was successfull');
-				window.location.reload();
+				closeModal();
+				toast.success('Password change was successful', {
+					autoClose: 2000,
+				});
+				setTimeout(() => {
+					window.location.reload();
+				}, 2500);
 			} catch (error) {
 				console.log(error.message);
 			}
@@ -104,14 +154,15 @@ export default function Profile() {
 		}
 	};
 
-	const handleChange = (e) => {
-		if (e.target.files[0]) {
-			setPhoto(e.target.files[0]);
-		}
-	};
-
-	const handleClick = () => {
-		upload(photo, user, setLoading);
+	const closeModal = () => {
+		setDisplayEditProfile((prevState) => ({
+			...prevState,
+			name: !prevState,
+			email: !prevState,
+			password: !prevState,
+			deleteAccount: !prevState,
+		}));
+		setShowModal((prevState) => !prevState);
 	};
 
 	if (loading) {
@@ -120,6 +171,7 @@ export default function Profile() {
 
 	return (
 		<div className='mx-auto mt-6 h-[70vh] w-11/12 max-w-[650px] rounded-lg bg-white shadow-xl dark:shadow-rose-300 sm:mt-10 sm:w-8/12 lg:h-[60vh] lg:text-lg'>
+			<ToastContainer position='top-center' />
 			<h1 className='pt-7 text-center font-["Source_Sans_Pro"] text-2xl sm:text-3xl xl:text-4xl'>
 				Edit Profile
 			</h1>
@@ -128,10 +180,10 @@ export default function Profile() {
 					onClick={() => inputRef.current.click()}
 					className='relative mt-2 flex w-24 shrink-0 grow-0  cursor-pointer items-center justify-center rounded-full p-2 duration-500 ease-in-out hover:scale-[1.08] lg:w-28'>
 					<img
-						src={photoUrl}
+						src={seephoto ? seephoto : photoUrl}
 						alt='avatar'
 						referrerPolicy='no-referrer'
-						className=' inline-block aspect-square w-full shrink-0 grow-0 rounded-full object-cover shadow-xl'
+						className=' inline-block aspect-square w-full rounded-full object-cover shadow-xl'
 					/>
 					<div className='absolute flex h-1/2 w-[70px] shrink-0 items-end self-end rounded-b-full lg:w-[81px] '>
 						<div className='h-[48%] w-full rounded-[50%/100%] rounded-t-none bg-black text-center text-sm tracking-wider text-white opacity-80 '>
@@ -140,7 +192,7 @@ export default function Profile() {
 					</div>
 				</div>
 				<button
-					onClick={handleClick}
+					onClick={() => upload(photo, user, setLoading)}
 					disabled={loading || !photo}
 					className='ml-1 rounded-full bg-blue-600 px-3 py-1 font-semibold tracking-wider text-white shadow-lg hover:bg-blue-400 disabled:hidden dark:bg-rose-300 dark:hover:bg-rose-200'>
 					Upload
@@ -184,12 +236,13 @@ export default function Profile() {
 						Edit
 					</button>
 				</div>
-				<div className='flex'>
-					<label>
-						<input type='file' ref={inputRef} className='hidden' onChange={handleChange} />
-					</label>
-				</div>
-
+				<input
+					type='file'
+					onChange={getPhoto}
+					accept='.png, .jpg, .jpeg'
+					ref={inputRef}
+					className='hidden'
+				/>
 				<div>
 					<button
 						onClick={() => [
@@ -203,14 +256,13 @@ export default function Profile() {
 
 				{showModal && (
 					<EditProfile
-						setShowModal={setShowModal}
 						displayEditProfile={displayEditProfile}
-						setDisplayEditProfile={setDisplayEditProfile}
 						updateDisplayName={updateDisplayName}
 						updateUserEmail={updateUserEmail}
 						updateUserPassword={updateUserPassword}
 						deleteProfile={deleteProfile}
 						profileData={profileData}
+						closeModal={closeModal}
 					/>
 				)}
 			</div>

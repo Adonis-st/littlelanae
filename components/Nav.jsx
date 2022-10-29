@@ -82,7 +82,6 @@ const Nav = () => {
 								</div>
 
 								<div className='nav-dropdown hidden group-focus:block  max-lg:group-hover:block'>
-									{/* <div className='hidden '></div> */}
 									<ul>
 										<li className='nav-dropdown-item '>
 											<div
@@ -98,13 +97,15 @@ const Nav = () => {
 																: 'translate-x-1 bg-gray-600 duration-300 ease-in-out'
 														}`}></div>
 												</div>
-												<MdDarkMode className='h-4 w-4 text-rose-300 lg:h-7  lg:w-7  ' />
+												<MdDarkMode className='h-4 w-4 text-rose-300 lg:h-7 lg:w-7' />
 											</div>
 										</li>
 
-										<li className='nav-dropdown-item'>
-											<Link href='/profile'>
-												<div className='nav-dropdown-padding w-full'>Edit Profile</div>
+										<li className='nav-dropdown-item h-fit'>
+											<Link href='/profile' className='nav-dropdown-padding block'>
+												{/* <div className='nav-dropdown-padding w-full'> */}
+												Edit Profile
+												{/* </div> */}
 											</Link>
 										</li>
 
@@ -124,32 +125,31 @@ const Nav = () => {
 							hamburgerMenu ? '' : 'hidden'
 						} w-full sm:inline-flex sm:w-auto sm:flex-grow`}>
 						<div className='ml-3 flex flex-col pt-2  sm:flex-row'>
-							<Link href='/'>
-								<a className={`${router.pathname === '/' ? 'active' : ''} navbar-item`}>
-									Home
-								</a>
+							<Link
+								href='/'
+								className={`${router.pathname === '/' ? 'active' : ''} navbar-item`}>
+								Home
 							</Link>
-							<Link href={!user ? '/login' : '/encouragement'}>
-								<a
-									className={`${
-										router.pathname === '/encouragement' ? 'active' : ''
-									} navbar-item`}>
-									Encouragement
-								</a>
+							<Link
+								href={!user ? '/login' : '/encouragement'}
+								className={`${
+									router.pathname === '/encouragement' ? 'active' : ''
+								} navbar-item`}>
+								Encouragement
 							</Link>
-							<Link href='/quiz'>
-								<a className={`${router.pathname === '/quiz' ? 'active' : ''} navbar-item`}>
-									Quiz
-								</a>
+							<Link
+								href='/quiz'
+								className={`${router.pathname === '/quiz' ? 'active' : ''} navbar-item`}>
+								Quiz
 							</Link>
 							{!user && (
-								<Link href='/login'>
-									<a
-										className={`${
-											router.pathname === '/login' ? 'active' : ''
-										} navbar-item`}>
-										Login
-									</a>
+								<Link
+									href='/login'
+									className={`${
+										router.pathname === '/login' ? 'active' : ''
+									} navbar-item`}>
+									{' '}
+									Login
 								</Link>
 							)}
 						</div>

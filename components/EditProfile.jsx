@@ -2,14 +2,13 @@ import { Modal } from 'flowbite-react';
 import { useState } from 'react';
 
 const EditProfile = ({
-	setShowModal,
 	displayEditProfile,
-	setDisplayEditProfile,
 	updateDisplayName,
 	updateUserEmail,
 	updateUserPassword,
 	deleteProfile,
 	profileData,
+	closeModal,
 }) => {
 	const { name, email, password, deleteAccount } = displayEditProfile;
 
@@ -28,16 +27,6 @@ const EditProfile = ({
 		}));
 	};
 
-	const closeModal = () => {
-		setDisplayEditProfile((prevState) => ({
-			...prevState,
-			name: !prevState,
-			email: !prevState,
-			password: !prevState,
-			deleteAccount: !prevState,
-		}));
-		setShowModal((prevState) => !prevState);
-	};
 	return (
 		<>
 			<Modal show={true} size='lg' popup={true} position='center' onClose={closeModal}>
@@ -53,7 +42,7 @@ const EditProfile = ({
 									id='name'
 									name='newName'
 									value={newName}
-									placeholder={profileData.displayName}
+									placeholder='hello'
 									onChange={onChange}
 								/>
 								<div className='mt-3 flex justify-center gap-x-4 font-["Source_Sans_Pro"] font-semibold text-white'>

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import data from '../..//data/acc';
 import Carousel from './Carousel';
 
@@ -9,7 +10,13 @@ const Accomplishments = () => {
 				{data.map((item, index) => {
 					return (
 						<div key={index} className='acc-card_desktop'>
-							<img className='max-w-full' src={item.imageUrl} alt={item.title} />
+							<Image
+								src={item.imageUrl}
+								alt={item.title}
+								width={500}
+								height={500}
+								className='w-full  max-w-full'
+							/>
 							<div className='h-[200px] lg:h-[300px] '>
 								<div className='px-3 pb-4 pt-2 xl:px-6 xl:pt-3 '>
 									<h3 className='mb-1 text-center text-xl font-bold capitalize xl:text-3xl'>
