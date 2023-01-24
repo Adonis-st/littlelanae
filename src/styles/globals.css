@@ -1,0 +1,258 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+	padding: 0;
+	margin: 0;
+	font-family: "Inter", sans-serif;
+}
+
+a {
+	text-decoration: none;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+@layer components {
+	/* Global */
+
+	.title {
+		@apply font-['Source_Sans_Pro'] font-bold capitalize tracking-wider;
+	}
+
+	/* Navbar */
+
+	.navbar {
+		@apply relative mx-auto flex w-full flex-wrap items-center justify-between py-2 text-gray-900 
+       md:max-w-[800px] lg:max-w-[960px] lg:py-3 xl:max-w-[1200px];
+	}
+
+	.navbar-item {
+		@apply mb-1 w-fit  rounded-full p-1 text-xl  font-medium
+    capitalize tracking-wide last:mb-0 hover:bg-rose-100 focus-visible:bg-rose-100 dark:hover:bg-[#FFFFFFB3]  dark:focus-visible:bg-[#FFFFFFB3] sm:ml-4 lg:mr-4  xl:mr-6 xl:font-semibold;
+	}
+
+	.active {
+		@apply text-gray-400 underline decoration-pink-100
+    decoration-4 underline-offset-[6px] dark:text-zinc-50 dark:hover:text-gray-400 dark:focus:text-gray-400;
+	}
+
+	/* Dropdown */
+
+	.nav-dropdown {
+		@apply absolute z-[1] mx-auto mt-14 mr-14 w-max self-center rounded-md bg-gray-100 pt-1  opacity-[.8] shadow-lg  hover:block
+		lg:mr-10 lg:py-2;
+	}
+
+	.nav-dropdown-item {
+		@apply mb-1 font-['Source_Sans_Pro'] font-semibold text-gray-800 hover:bg-gray-300 focus-visible:bg-gray-300 sm:text-lg  lg:text-xl;
+	}
+
+	.nav-dropdown-padding {
+		@apply py-1 px-3 lg:px-4 lg:py-3;
+	}
+
+	/* Hero */
+
+	.hero {
+		@apply mx-auto mt-5 mb-10 grid w-11/12 max-w-[1440px]
+    sm:mt-6 sm:flex sm:min-h-[100vh];
+	}
+
+	.hero-text {
+		@apply col-[1/-1] row-[1/-1] flex h-full flex-col 
+    justify-end self-center px-4 pb-3 text-gray-900
+    sm:px-3 sm:pb-0;
+	}
+
+	.hero-img {
+		@apply z-[-1] col-[1/-1] row-[1/-1] rounded-lg;
+	}
+
+	.hero-img_desk {
+		@apply hidden w-full max-w-[250px] rounded-2xl shadow-xl
+		ring-1 ring-gray-700/50 dark:shadow-rose-300 dark:ring-rose-300 sm:inline-block;
+	}
+
+	.hero-img-animation {
+		@apply delay-300 duration-[1400ms] ease-in-out;
+	}
+
+	/* Accomplishments */
+
+	.acc {
+		@apply mx-auto my-9  hidden w-11/12 flex-col items-center
+		gap-x-1 sm:flex sm:flex-row lg:gap-x-2 xl:gap-x-4;
+	}
+
+	.acc-card_desktop {
+		@apply mx-auto w-full max-w-[450px] overflow-hidden rounded-lg shadow-lg delay-150 duration-500 ease-in-out
+		 hover:scale-[1.07] dark:bg-rose-300/[.5] dark:text-gray-800 dark:shadow-rose-400/[.7];
+	}
+
+	.acc-hashtag {
+		@apply inline-block rounded-full bg-gray-200 px-3 py-1 text-xs  font-semibold capitalize text-gray-900 ring-2
+    ring-gray-800 dark:bg-rose-100/[.7] dark:ring-rose-300 sm:mr-2 sm:mb-3 sm:text-sm lg:mx-3 lg:text-[.91rem] xl:px-2 xl:text-[1.2rem];
+	}
+	/* mr-2 mb-2  */
+	/* encoragement */
+
+	/* message */
+
+	.message-name {
+		@apply font-["Source_Sans_Pro"]
+		text-xs italic text-gray-600 sm:text-sm xl:text-base;
+	}
+
+	.message-text_user {
+		@apply w-full rounded-lg bg-inherit p-0 text-left font-medium text-white caret-gray-900 ring-4 ring-blue-600 focus:bg-blue-400
+		 focus:ring-white dark:text-gray-50 dark:ring-rose-200 dark:focus:bg-rose-300 sm:text-xl lg:text-2xl;
+	}
+
+	.message-dropdown-item {
+		@apply flex w-full items-center justify-center rounded-t-md px-2 py-[.1667rem] text-sm  font-semibold text-gray-900 hover:bg-gray-400 lg:px-3 lg:py-1 lg:text-base;
+	}
+
+	.message-hearts {
+		@apply cursor-pointer duration-300 ease-in-out hover:scale-[1.15] sm:text-lg xl:text-xl;
+	}
+
+	.message-likes-count {
+		@apply mr-[.15rem] text-[.55rem] font-semibold;
+	}
+
+	/* send message */
+
+	.send-message-form-container {
+		@apply absolute bottom-0 mx-auto mt-3 flex h-12 w-[97vw] items-center bg-gray-100 dark:bg-rose-50 sm:h-16 sm:w-[97.5vw] lg:w-[98.5vw] xl:w-[98.8vw];
+	}
+
+	.send-message-form {
+		@apply mx-auto flex h-[80%] w-[95%] max-w-[720px] items-center justify-between rounded-full border-[1.5px] border-gray-500 bg-white text-xl sm:h-[70%] sm:w-[80%] xl:max-w-[850px];
+	}
+
+	.send-message-input {
+		@apply h-full w-[100%] rounded-full border-none p-3 font-["Source_Sans_Pro"] text-xl text-gray-900 caret-blue-500 placeholder:text-center placeholder:text-2xl 
+		placeholder:font-semibold placeholder:text-gray-800/[.8] group-hover:w-[85%] group-hover:placeholder:text-xl dark:caret-rose-300 sm:px-7 sm:text-2xl
+		group-hover:sm:w-[88%] group-hover:sm:placeholder:text-2xl;
+	}
+
+	.send-message-btn {
+		@apply mr-1 hidden h-[90%]  items-center justify-center rounded-full bg-blue-600 px-3  text-white/[.9] disabled:bg-blue-400 group-hover:flex dark:bg-rose-300 disabled:dark:bg-rose-200/80 
+		sm:mr-2 sm:rounded-3xl sm:px-4 lg:mr-2 lg:px-2 xl:px-3;
+	}
+
+	/* Quiz */
+
+	.quiz {
+		@apply mx-auto mt-5 w-11/12  rounded-2xl py-2 pb-6 shadow-xl shadow-rose-100  dark:shadow-rose-300/[.6] sm:mt-16 sm:w-9/12 lg:mt-24 xl:mt-32;
+	}
+
+	.score {
+		@apply mx-auto mb-5 mt-8 w-[55%] max-w-md rounded-md bg-rose-100 py-1
+		text-center text-base font-semibold text-pink-400 dark:bg-rose-200 dark:text-pink-500 sm:mb-7 lg:text-lg xl:text-xl;
+	}
+
+	.question {
+		@apply mx-auto flex max-w-[600px] items-center justify-center rounded-md border-[3px] border-neutral-900
+	bg-gray-100 p-2 text-center font-['Source_Sans_Pro'] text-lg font-bold text-gray-900 
+	dark:border-rose-400 dark:bg-rose-300 sm:mb-6 sm:text-2xl md:mb-8;
+	}
+
+	.answers {
+		@apply mx-auto mt-3 flex flex-col sm:max-w-[600px] sm:flex-row sm:flex-wrap lg:max-w-[800px] xl:max-w-[1000px];
+	}
+
+	.answer {
+		@apply mx-auto mb-3 flex w-9/12 
+		cursor-pointer rounded-full border-[3px] border-gray-600 bg-gray-50 py-3 tracking-wider shadow-lg
+		 hover:bg-gray-200/[.7] dark:border-rose-300 dark:bg-rose-200 sm:mb-5 sm:w-[48%] sm:py-4 md:mr-3
+		 md:w-[47%] lg:rounded-full  lg:py-2 xl:ml-9 xl:w-[42%];
+	}
+
+	.answer-letter {
+		@apply ml-1 hidden  w-[70px]  justify-center rounded-full border border-gray-900 bg-white/[.95]  bg-gray-50
+		 py-3  text-2xl font-extrabold text-gray-700 dark:bg-rose-400 dark:text-white lg:flex  xl:w-[80px] xl:text-3xl;
+	}
+
+	.answer-text {
+		@apply m-auto text-xl font-semibold capitalize text-gray-700 sm:text-center  sm:font-bold lg:mx-0 lg:ml-6 xl:text-2xl;
+	}
+
+	.correct-answer {
+		@apply border-[3px]  bg-lime-500 dark:border-lime-600 dark:bg-lime-400/[.9];
+	}
+
+	.correct-answer .answer-letter {
+		@apply bg-white text-lime-500 dark:bg-lime-500/[.8] dark:text-white/[.8];
+	}
+
+	.wrong-answer {
+		@apply border-[3px] border-red-800 bg-red-600  dark:border-red-800 dark:bg-red-500/[.9];
+	}
+
+	.wrong-answer .answer-letter {
+		@apply bg-white text-red-600  dark:bg-red-600/[.8] dark:text-white/[.9];
+	}
+
+	.wrong-answer .answer-text {
+		@apply text-white/[.95];
+	}
+
+	.next-button {
+		@apply mx-auto mt-3 w-[60%] max-w-[250px] cursor-pointer rounded-full border-2  border-neutral-900 bg-gray-100
+		px-8 py-2 text-center text-base font-semibold capitalize text-black shadow-lg hover:scale-105 hover:bg-gray-200 hover:delay-75 hover:ease-in-out
+		dark:border-slate-300 dark:bg-black dark:text-white sm:text-2xl;
+	}
+
+	.results {
+		@apply mx-auto w-[95%] rounded-lg bg-rose-100 pb-8 text-center
+		shadow-xl shadow-rose-200 dark:bg-rose-200 sm:w-[97%] lg:pb-10;
+	}
+
+	.results-heading {
+		@apply rounded-lg bg-rose-300 p-4 text-3xl capitalize
+		tracking-wide text-white sm:text-4xl xl:text-5xl;
+	}
+	.results-info {
+		@apply my-4 text-lg;
+	}
+
+	.disabled-answer {
+		@apply pointer-events-none;
+	}
+
+	/* Login */
+
+	.form-container {
+		@apply mx-auto mt-10 flex h-[75%] w-11/12 max-w-[580px] flex-col items-center justify-center rounded-3xl bg-white
+		 pb-16 pt-5 text-gray-800 shadow-xl dark:shadow-rose-300/[.6] sm:w-9/12 sm:pt-10;
+	}
+	.sign-in-btn {
+		@apply flex w-[75%] max-w-[318px] cursor-pointer items-center justify-center rounded-2xl  border border-gray-400 px-1
+		py-2 font-['Source_Sans_Pro'] font-medium shadow-md hover:bg-gray-100 sm:w-[55%] sm:py-[.65rem];
+	}
+
+	.login-input {
+		@apply w-[75%] max-w-[318px] rounded-xl sm:w-[55%] sm:text-lg xl:text-xl;
+	}
+
+	.login-btn {
+		@apply relative w-[65%] max-w-[260px] rounded-full bg-blue-600 py-2 px-3 text-lg 
+		font-extrabold tracking-wide text-white shadow-xl hover:bg-blue-500 hover:shadow-blue-500/[.3]
+	 focus:top-[1.5px] focus:left-[1.5px] focus:bg-blue-500 focus:shadow-none dark:bg-rose-300
+	  dark:hover:bg-rose-200  dark:hover:shadow-rose-200/[.3] dark:focus:bg-rose-200 sm:w-[45%] sm:py-3;
+	}
+
+	.register-avatar-btn {
+		@apply rounded-xl bg-blue-600 px-3  py-1 text-sm  font-semibold tracking-wide text-white  shadow-xl  hover:bg-blue-400 
+		 hover:shadow-blue-500/[.3] focus:top-[1.5px] focus:left-[1.5px] focus:bg-blue-500 focus:shadow-none  dark:bg-rose-300 dark:hover:bg-rose-200
+		 dark:hover:shadow-rose-200/[.3] dark:focus:bg-rose-200 sm:text-base lg:text-lg;
+	}
+}
